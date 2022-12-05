@@ -1,7 +1,7 @@
 {
-  "name": "pawket-js-sdk-example",
-  "private": true,
-  "version": "0.0.0",
+  "name": "pawket-js-sdk",
+  "version": "1.0.0",
+  "license": "MIT",
   "type": "module",
   "files": ["dist"],
   "main": "./dist/pawket.cjs",

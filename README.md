@@ -1,4 +1,4 @@
-# JS SDK example
+# JS SDK
 
 Use 
 ```html
@@ -11,3 +11,7 @@ Use
 const client = new chia.Pawket(baseUrl);
 ```
 to initialize the client.
+
+## License
+
+MIT
