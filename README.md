@@ -2,7 +2,7 @@
 
 Use 
 ```html
-<script src="dist/pawket.iife.js"></script>]
+<script src="//cdn.jsdelivr.net/npm/pawket-js-sdk/dist/pawket.iife.js"></script>
 ```
 to inject the IIFE code.
 

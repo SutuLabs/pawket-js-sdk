@@ -1,6 +1,6 @@
 {
   "name": "pawket-js-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "type": "module",
   "files": ["dist"],
@@ -12,6 +12,13 @@
       "require": "./dist/pawket.umd.cjs"
     }
   },
+  "keywords": [
+    "pawket",
+    "chia",
+    "blockchain",
+    "sdk",
+    "api"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
