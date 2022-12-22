@@ -4,9 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
+    <script src="dist/pawket.iife.js"></script>
   </head>
   <body>
+    <script>
+      const client = new chia.Pawket();
+      client.signWithDid("did:chia:1med28mn355h2wmqqxgkm7xcse8du2llpf9c6y204vgaguayqhq5q0ewda2", "what's up?");
+      window.addEventListener("message", (event) => {
+        if (event.origin == window.location.origin) return;
+        console.log(event.data);
+      });
+    </script>
     <div id="app"></div>
-    <script src="dist/pawket.iife.js"></script>
   </body>
 </html>
