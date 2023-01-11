@@ -18,6 +18,8 @@ jobs:
           mkdir -p build/dist
           cp index.* build/
           cp dist/pawket.iife.js build/dist/
+          mkdir -p build/assets
+          cp assets/* build/assets/
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
