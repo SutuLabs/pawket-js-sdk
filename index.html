@@ -58,8 +58,9 @@
                   <div class="w-1/3"></div>
                   <div class="w-2/3">
                     <button
-                      class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                      class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded disabled:bg-gray-400 disabled:opacity-75"
                       type="button"
+                      :disabled="!sendAddress"
                       @click="transfer()"
                     >
                       Connect Wallet
@@ -83,8 +84,9 @@
                   <div class="w-1/3"></div>
                   <div class="w-2/3">
                     <button
-                      class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                      class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded disabled:bg-gray-400 disabled:opacity-75"
                       type="button"
+                      :disabled="!offerText"
                       @click="takeOffer()"
                     >
                       Connect Wallet
@@ -116,8 +118,9 @@
                   <div class="w-1/3"></div>
                   <div class="w-2/3">
                     <button
-                      class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                      class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded disabled:bg-gray-400 disabled:opacity-75"
                       type="button"
+                      :disabled="!did || !signMessage"
                       @click="signWithDid()"
                     >
                       Connect Wallet
@@ -127,10 +130,19 @@
                 <div class="block items-center mb-6" v-if="signRes">
                   <label class="block text-gray-700 text-sm font-bold mb-2">Result</label>
                   <textarea
-                    :value="signRes"
+                    v-model="signRes"
                     disabled
                     class="shadow appearance-none border rounded w-full h-[200px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   ></textarea>
+                  <div class="text-right mt-2">
+                    <button
+                      class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                      type="button"
+                      @click="copy(signRes)"
+                    >
+                      Copy
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
