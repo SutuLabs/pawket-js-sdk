@@ -7,7 +7,11 @@ createApp({
       did: "",
       signMessage: "",
       signRes: "",
+      accountAddress: "",
+      accountDid: "",
       offerText: "",
+      showToast: false,
+      toastText: "",
     };
   },
   methods: {
@@ -27,6 +31,40 @@ createApp({
       const client = new chia.Pawket();
       client.takeOffer(this.offerText);
     },
+    getAddress() {
+      const client = new chia.Pawket({
+        baseUrl: "https://wallet.pr.supernova.uchaindb.com/",
+      });
+      client.getAddress();
+      window.addEventListener("message", (event) => {
+        if (event.origin == window.location.origin) return;
+        this.accountAddress = event.data;
+      });
+    },
+    getDid() {
+      const client = new chia.Pawket({
+        baseUrl: "https://wallet.pr.supernova.uchaindb.com/",
+      });
+      client.getDid();
+      window.addEventListener("message", (event) => {
+        if (event.origin == window.location.origin) return;
+        this.accountDid = event.data;
+      });
+    },
+    openToast(text) {
+      this.showToast = true;
+      this.toastText = text;
+      // reset time to 0 second
+      clearTimeout(this.timer);
+
+      // auto close toast after 5 seconds
+      this.timer = setTimeout(() => {
+        this.showToast = false;
+      }, 5000);
+    },
+    closeToast() {
+      this.showToast = false;
+    },
     copy(copyText) {
       const textArea = document.createElement("textarea");
       textArea.value = copyText;
@@ -44,6 +82,8 @@ createApp({
       } catch (err) {
         console.warn("failed to copy: ", err);
       }
+
+      this.openToast("Copied to Clipboard!");
 
       document.body.removeChild(textArea);
     },
