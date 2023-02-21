@@ -23,8 +23,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "publish": "vite build && npm publish",
+    "edit-iife": "bash edit_iife.sh",
+    "build": "vite build && npm run edit-iife",
+    "publish": "vite build && npm run edit-iife && npm publish",
     "preview": "vite preview"
   },
   "devDependencies": {
