@@ -23,9 +23,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "edit-iife": "bash edit_iife.sh",
-    "build": "vite build && npm run edit-iife",
-    "publish": "vite build && npm run edit-iife && npm publish",
+    "build:fix-iife": "sed -i 's/chia/chiaPawket/1' ./dist/pawket.iife.js && sed -i 's/$/if(chia){chia.Pawket=chiaPawket.Pawket}else{var chia=chiaPawket}/1' ./dist/pawket.iife.js",
+    "build": "vite build && npm run build:fix-iife",
+    "publish": "vite build && npm run build:fix-iife && npm publish",
     "preview": "vite preview"
   },
   "devDependencies": {
