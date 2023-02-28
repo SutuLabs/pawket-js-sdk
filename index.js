@@ -32,9 +32,7 @@ createApp({
       client.takeOffer(this.offerText);
     },
     getAddress() {
-      const client = new chia.Pawket({
-        baseUrl: "https://wallet.pr.supernova.uchaindb.com/",
-      });
+      const client = new chia.Pawket();
       client.getAddress();
       window.addEventListener("message", (event) => {
         if (event.origin == window.location.origin) return;
@@ -42,9 +40,7 @@ createApp({
       });
     },
     getDid() {
-      const client = new chia.Pawket({
-        baseUrl: "https://wallet.pr.supernova.uchaindb.com/",
-      });
+      const client = new chia.Pawket();
       client.getDid();
       window.addEventListener("message", (event) => {
         if (event.origin == window.location.origin) return;
