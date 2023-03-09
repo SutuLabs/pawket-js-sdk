@@ -15,37 +15,53 @@ createApp({
     };
   },
   methods: {
-    signWithDid() {
+    async signWithDid() {
       const client = new chia.Pawket();
-      client.signWithDid(this.did, this.signMessage);
-      window.addEventListener("message", (event) => {
-        if (event.origin == window.location.origin) return;
-        this.signRes = event.data;
-      });
+      try {
+        const res = await client.signWithDid(this.did, this.signMessage);
+        this.signRes = res;
+        this.openToast("success");
+      } catch (error) {
+        this.openToast(error);
+      }
     },
-    transfer() {
+    async transfer() {
       const client = new chia.Pawket();
-      client.send(this.sendAddress);
+      try {
+        const res = await client.send(this.sendAddress);
+        this.openToast("success: " + res);
+      } catch (error) {
+        this.openToast(error);
+      }
     },
-    takeOffer() {
+    async takeOffer() {
       const client = new chia.Pawket();
-      client.takeOffer(this.offerText);
+      try {
+        const msg = await client.takeOffer(this.offerText);
+        this.openToast("success: " + msg);
+      } catch (error) {
+        this.openToast(error);
+      }
     },
-    getAddress() {
+    async getAddress() {
       const client = new chia.Pawket();
-      client.getAddress();
-      window.addEventListener("message", (event) => {
-        if (event.origin == window.location.origin) return;
-        this.accountAddress = event.data;
-      });
+      try {
+        const address = await client.getAddress();
+        this.accountAddress = address;
+        this.openToast("success: " + address);
+      } catch (error) {
+        this.openToast(error);
+      }
     },
-    getDid() {
+    async getDid() {
       const client = new chia.Pawket();
-      client.getDid();
-      window.addEventListener("message", (event) => {
-        if (event.origin == window.location.origin) return;
-        this.accountDid = event.data;
-      });
+      try {
+        const did = await client.getDid();
+        this.accountDid = did;
+        this.openToast("success");
+      } catch (error) {
+        this.openToast(error);
+      }
     },
     openToast(text) {
       this.showToast = true;
