@@ -12,6 +12,8 @@ createApp({
       offerText: "",
       showToast: false,
       toastText: "",
+      catName: "",
+      catId: "",
     };
   },
   methods: {
@@ -22,7 +24,18 @@ createApp({
         this.signRes = res;
         this.openToast("success");
       } catch (error) {
-        this.openToast(error);
+        this.openToast(error.status);
+      }
+    },
+    async addCat() {
+      const client = new chia.Pawket();
+      try {
+        const res = await client.addCat(this.catId, this.catName);
+        this.openToast("success: " + res);
+        this.catId = "";
+        this.catName = "";
+      } catch (error) {
+        this.openToast(error.status);
       }
     },
     async transfer() {
@@ -31,7 +44,7 @@ createApp({
         const res = await client.send(this.sendAddress);
         this.openToast("success: " + res);
       } catch (error) {
-        this.openToast(error);
+        this.openToast(error.status);
       }
     },
     async takeOffer() {
@@ -40,7 +53,7 @@ createApp({
         const msg = await client.takeOffer(this.offerText);
         this.openToast("success: " + msg);
       } catch (error) {
-        this.openToast(error);
+        this.openToast(error.status);
       }
     },
     async getAddress() {
@@ -50,7 +63,7 @@ createApp({
         this.accountAddress = address;
         this.openToast("success: " + address);
       } catch (error) {
-        this.openToast(error);
+        this.openToast(error.status);
       }
     },
     async getDid() {
@@ -60,7 +73,7 @@ createApp({
         this.accountDid = did;
         this.openToast("success");
       } catch (error) {
-        this.openToast(error);
+        this.openToast(error.status);
       }
     },
     openToast(text) {
