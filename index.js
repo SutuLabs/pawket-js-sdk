@@ -12,40 +12,69 @@ createApp({
       offerText: "",
       showToast: false,
       toastText: "",
+      catName: "",
+      catId: "",
     };
   },
   methods: {
-    signWithDid() {
+    async signWithDid() {
       const client = new chia.Pawket();
-      client.signWithDid(this.did, this.signMessage);
-      window.addEventListener("message", (event) => {
-        if (event.origin == window.location.origin) return;
-        this.signRes = event.data;
-      });
+      try {
+        const res = await client.signWithDid(this.did, this.signMessage);
+        this.signRes = res;
+        this.openToast("success");
+      } catch (error) {
+        this.openToast(error.status);
+      }
     },
-    transfer() {
+    async addCat() {
       const client = new chia.Pawket();
-      client.send(this.sendAddress);
+      try {
+        const res = await client.addCat(this.catId, this.catName);
+        this.openToast("success: " + res);
+        this.catId = "";
+        this.catName = "";
+      } catch (error) {
+        this.openToast(error.status);
+      }
     },
-    takeOffer() {
+    async transfer() {
       const client = new chia.Pawket();
-      client.takeOffer(this.offerText);
+      try {
+        const res = await client.send(this.sendAddress);
+        this.openToast("success: " + res);
+      } catch (error) {
+        this.openToast(error.status);
+      }
     },
-    getAddress() {
+    async takeOffer() {
       const client = new chia.Pawket();
-      client.getAddress();
-      window.addEventListener("message", (event) => {
-        if (event.origin == window.location.origin) return;
-        this.accountAddress = event.data;
-      });
+      try {
+        const msg = await client.takeOffer(this.offerText);
+        this.openToast("success: " + msg);
+      } catch (error) {
+        this.openToast(error.status);
+      }
     },
-    getDid() {
+    async getAddress() {
       const client = new chia.Pawket();
-      client.getDid();
-      window.addEventListener("message", (event) => {
-        if (event.origin == window.location.origin) return;
-        this.accountDid = event.data;
-      });
+      try {
+        const address = await client.getAddress();
+        this.accountAddress = address;
+        this.openToast("success: " + address);
+      } catch (error) {
+        this.openToast(error.status);
+      }
+    },
+    async getDid() {
+      const client = new chia.Pawket();
+      try {
+        const did = await client.getDid();
+        this.accountDid = did;
+        this.openToast("success");
+      } catch (error) {
+        this.openToast(error.status);
+      }
     },
     openToast(text) {
       this.showToast = true;
