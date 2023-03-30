@@ -40,6 +40,9 @@
           <a :class="selected == 'signWithDid' ? 'h-[48px] flex items-center text-[14px] w-full bg-gray-100 text-[#39c0ae]' : 'h-[48px] flex items-center text-[14px] w-full hover:bg-gray-50 hover:cursor-pointer'"
             @click="selected = 'signWithDid'"><span class="ml-4">Sign With DID</span>
           </a>
+          <a :class="selected == 'signWithAddress' ? 'h-[48px] flex items-center text-[14px] w-full bg-gray-100 text-[#39c0ae]' : 'h-[48px] flex items-center text-[14px] w-full hover:bg-gray-50 hover:cursor-pointer'"
+          @click="selected = 'signWithAddress'"><span class="ml-4">Sign With Address</span>
+        </a>
           <a :class="selected == 'getAddress' ? 'h-[48px] flex items-center text-[14px] w-full bg-gray-100 text-[#39c0ae]' : 'h-[48px] flex items-center text-[14px] w-full hover:bg-gray-50 hover:cursor-pointer'"
             @click="selected = 'getAddress'"><span class="ml-4">Get Address</span>
           </a>
@@ -123,42 +126,84 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2">DID</label>
                 <input
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text" v-model="did" />
+                  type="text" v-model="signDid" />
               </div>
               <div class="block items-center mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Message</label>
                 <input
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text" v-model="signMessage" />
+                  type="text" v-model="signDidMessage" />
               </div>
-              <div class="flex items-center" v-if="!signRes">
+              <div class="flex items-center" v-if="!signDidRes">
                 <div class="w-1/3"></div>
                 <div class="w-2/3">
                   <button
                     class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded disabled:bg-gray-400 disabled:opacity-75"
-                    type="button" :disabled="!did || !signMessage" @click="signWithDid()">
+                    type="button" :disabled="!signDid || !signMessage" @click="signWithDid()">
                     Connect Wallet
                   </button>
                 </div>
               </div>
-              <div class="block items-center mb-6" v-if="signRes">
+              <div class="block items-center mb-6" v-if="signDidRes">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Result</label>
-                <textarea v-model="signRes" disabled
+                <textarea v-model="signDidRes" disabled
                   class="shadow appearance-none border rounded w-full h-[200px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
                 <div class="flex justify-between mt-2">
                   <button
                   class="shadow bg-red-400 hover:bg-red-200 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                  type="button" @click="signRes = ''; did = ''; signMessage = ''">
+                  type="button" @click="signDidRes = ''; signDid = ''; signDidMessage = ''">
                   Clear
                 </button>
                   <button
                     class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                    type="button" @click="copy(signRes)">
+                    type="button" @click="copy(signDidRes)">
                     Copy
                   </button>
                 </div>
               </div>
             </form>
+            <form class="bg-white p-[32px] w-2/5 relative rounded-2xl shadow-xl shadow-[#549b52]/10 m-auto mt-[150px]"
+            v-if="selected == 'signWithAddress'">
+            <div class="block items-center mb-6">
+              <label class="block text-gray-700 text-sm font-bold mb-2">Address</label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text" v-model="signAddress" />
+            </div>
+            <div class="block items-center mb-6">
+              <label class="block text-gray-700 text-sm font-bold mb-2">Message</label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text" v-model="signAddressMessage" />
+            </div>
+            <div class="flex items-center" v-if="!signAddressRes">
+              <div class="w-1/3"></div>
+              <div class="w-2/3">
+                <button
+                  class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded disabled:bg-gray-400 disabled:opacity-75"
+                  type="button" :disabled="!signAddress || !signAddressMessage" @click="signWithAddress()">
+                  Connect Wallet
+                </button>
+              </div>
+            </div>
+            <div class="block items-center mb-6" v-if="signAddressRes">
+              <label class="block text-gray-700 text-sm font-bold mb-2">Result</label>
+              <textarea v-model="signAddressRes" disabled
+                class="shadow appearance-none border rounded w-full h-[200px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+              <div class="flex justify-between mt-2">
+                <button
+                class="shadow bg-red-400 hover:bg-red-200 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                type="button" @click="signAddressRes = ''; signAddress = ''; signAddressMessage = ''">
+                Clear
+              </button>
+                <button
+                  class="shadow bg-[#39c0ae] hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                  type="button" @click="copy(signAddressRes)">
+                  Copy
+                </button>
+              </div>
+            </div>
+          </form>
             <form class="bg-white p-[32px] w-2/5 relative rounded-2xl shadow-xl shadow-[#549b52]/10 m-auto mt-[150px]"
               v-if="selected == 'getAddress'">
               <div class="flex items-center" v-if="!accountAddress">

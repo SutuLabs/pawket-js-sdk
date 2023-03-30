@@ -4,9 +4,12 @@ createApp({
     return {
       selected: "transfer",
       sendAddress: "",
-      did: "",
-      signMessage: "",
-      signRes: "",
+      signDid: "",
+      signAddress: "",
+      signDidMessage: "",
+      signAddressMessage: "",
+      signDidRes: "",
+      signAddressRes: "",
       accountAddress: "",
       accountDid: "",
       offerText: "",
@@ -20,8 +23,18 @@ createApp({
     async signWithDid() {
       const client = new chia.Pawket();
       try {
-        const res = await client.signWithDid(this.did, this.signMessage);
-        this.signRes = res;
+        const res = await client.signWithDid(this.signDid, this.signDidMessage);
+        this.signDidRes = res;
+        this.openToast("success");
+      } catch (error) {
+        this.openToast(error.status);
+      }
+    },
+    async signWithAddress() {
+      const client = new chia.Pawket();
+      try {
+        const res = await client.signWithAddress(this.signAddress, this.signAddressMessage);
+        this.signAddressRes = res;
         this.openToast("success");
       } catch (error) {
         this.openToast(error.status);
