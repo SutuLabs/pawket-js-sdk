@@ -2,6 +2,7 @@ const { createApp } = Vue;
 createApp({
   data() {
     return {
+      baseUrl: "https://pawket.app",
       selected: "transfer",
       sendAddress: "",
       signDid: "",
@@ -21,7 +22,7 @@ createApp({
   },
   methods: {
     async signWithDid() {
-      const client = new chia.Pawket();
+      const client = new chia.Pawket({ baseUrl: this.baseUrl });
       try {
         const res = await client.signWithDid(this.signDid, this.signDidMessage);
         this.signDidRes = res;
@@ -31,7 +32,7 @@ createApp({
       }
     },
     async signWithAddress() {
-      const client = new chia.Pawket();
+      const client = new chia.Pawket({ baseUrl: this.baseUrl });
       try {
         const res = await client.signWithAddress(this.signAddress, this.signAddressMessage);
         this.signAddressRes = res;
@@ -41,7 +42,7 @@ createApp({
       }
     },
     async addCat() {
-      const client = new chia.Pawket();
+      const client = new chia.Pawket({ baseUrl: this.baseUrl });
       try {
         const res = await client.addCat(this.catId, this.catName);
         this.openToast("success: " + res);
@@ -52,7 +53,7 @@ createApp({
       }
     },
     async transfer() {
-      const client = new chia.Pawket();
+      const client = new chia.Pawket({ baseUrl: this.baseUrl });
       try {
         const res = await client.send(this.sendAddress);
         this.openToast("success: " + res);
@@ -61,7 +62,7 @@ createApp({
       }
     },
     async takeOffer() {
-      const client = new chia.Pawket();
+      const client = new chia.Pawket({ baseUrl: this.baseUrl });
       try {
         const msg = await client.takeOffer(this.offerText);
         this.openToast("success: " + msg);
@@ -70,7 +71,7 @@ createApp({
       }
     },
     async getAddress() {
-      const client = new chia.Pawket();
+      const client = new chia.Pawket({ baseUrl: this.baseUrl });
       try {
         const address = await client.getAddress();
         this.accountAddress = address;
@@ -80,7 +81,7 @@ createApp({
       }
     },
     async getDid() {
-      const client = new chia.Pawket();
+      const client = new chia.Pawket({ baseUrl: this.baseUrl });
       try {
         const did = await client.getDid();
         this.accountDid = did;
