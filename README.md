@@ -29,14 +29,14 @@ CommonJS:
 
 ```javascript
 const Pawket = require('pawket-js-sdk');
-const client = new Pawket(baseUrl);
+const client = new Pawket({ baseUrl });
 ```
 
 ES module:
 
 ```javascript
-import Pawket from 'pawket-js-sdk';
-const client = new Pawket(baseUrl);
+import { Pawket } from 'pawket-js-sdk';
+const client = new Pawket({ baseUrl });
 ```
 
 ## License

@@ -1,6 +1,6 @@
 {
   "name": "pawket-js-sdk",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "type": "module",
   "files": [
@@ -27,7 +27,7 @@
     "build:fix-iife": "sed -i 's/chia/chiaPawket/1' ./dist/pawket.iife.js && sed -i 's/$/if(chia){chia.Pawket=chiaPawket.Pawket}else{var chia=chiaPawket}/1' ./dist/pawket.iife.js",
     "build": "vite build && npm run build:fix-iife && npm run build:types",
     "build:types": "npx -p typescript tsc",
-    "publish": "vite build && npm run build:fix-iife && npm publish",
+    "publish": "vite build && npm run build:fix-iife && npm run build:types && npm publish",
     "preview": "vite preview"
   },
   "devDependencies": {
